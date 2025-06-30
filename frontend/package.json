@@ -1,26 +1,22 @@
 {
-  "name": "nuxt-app",
-  "private": true,
-  "type": "module",
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\"",
-	"dev:frontend": "nuxt dev",
-	"dev:backend": "cd ../backend && cargo watch -x run",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+	"dev":"vite",
+	"build":"vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0",
   "dependencies": {
-    "@nuxt/eslint": "1.4.1",
-    "@nuxt/fonts": "0.11.4",
-    "@nuxt/icon": "1.13.0",
-    "@nuxt/image": "1.10.0",
-    "@nuxtjs/tailwindcss": "7.0.0-beta.0",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.0.0",
-    "nuxt": "^3.17.5",
-    "vue": "^3.5.16",
-    "vue-router": "^4.5.1"
+    "htmx.org": "^2.0.6"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4",
+    "vite": "^7.0.0"
   }
 }

@@ -1,0 +1,9 @@
+[submodule "build/extern/oatpp-swagger"]
+	path = build/extern/oatpp-swagger
+	url = https://github.com/oatpp/oatpp-swagger.git
+[submodule "extern/oatpp-swagger"]
+	path = extern/oatpp-swagger
+	url = https://github.com/oatpp/oatpp-swagger.git
+[submodule "extern/oatpp"]
+	path = extern/oatpp
+	url = https://github.com/oatpp/oatpp.git
