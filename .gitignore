@@ -1,6 +1,7 @@
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
+frontend/.env
 *.vscode/
 .idea/
 .DS_Store
@@ -10,6 +11,7 @@ Thumbs.db
 *.iml/
 
 backend/bin/
+backend/.env
 backend/*.exe
 backend/*.out
 backend/*.test

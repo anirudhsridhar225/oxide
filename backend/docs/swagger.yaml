@@ -1,0 +1,196 @@
+basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Session:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      path:
+        type: string
+      repoURL:
+        type: string
+      updatedAt:
+        type: string
+      userID:
+        type: string
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      githubId:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      sessions:
+        items:
+          $ref: '#/definitions/models.Session'
+        type: array
+      updatedAt:
+        type: string
+      userId:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@oxide.io
+    name: API Support
+    url: http://www.oxide.io/support
+  description: Oxide backend API with math operations and utilities
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Oxide API
+  version: "1.0"
+paths:
+  /:
+    get:
+      description: Returns a simple hello message
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: hello
+          schema:
+            type: string
+      summary: Root endpoint
+      tags:
+      - general
+  /api/add:
+    get:
+      description: Add two integers provided as query parameters
+      parameters:
+      - description: First number
+        in: query
+        name: a
+        required: true
+        type: integer
+      - description: Second number
+        in: query
+        name: b
+        required: true
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Sum of the two numbers
+          schema:
+            type: string
+        "400":
+          description: Invalid parameters
+          schema:
+            type: string
+      summary: Add two numbers
+      tags:
+      - math
+  /api/hello:
+    get:
+      description: Returns a hello message from backend
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: hello from backend
+          schema:
+            type: string
+      summary: Hello endpoint
+      tags:
+      - general
+  /api/user:
+    get:
+      description: Retrieves all users from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of users
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "500":
+          description: Failed to fetch users
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all users
+      tags:
+      - user
+  /api/user/add:
+    post:
+      description: adds a new user to the database
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request payload
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to create user
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: add a new user to the db
+      tags:
+      - user
+  /api/user/delete:
+    delete:
+      description: Deletes a user from the database (not implemented yet)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Delete user functionality not implemented yet
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Failed to delete user
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a user
+      tags:
+      - user
+swagger: "2.0"
