@@ -127,12 +127,9 @@ const docTemplate = `{
                         }
                     },
                     "500": {
-                        "description": "Failed to fetch users",
+                        "description": "Internal Server Error",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -147,7 +144,7 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "add a new user to the db",
+                "summary": "Add a user",
                 "parameters": [
                     {
                         "description": "User object",
@@ -163,26 +160,19 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/responses.UserResponse"
                         }
                     },
                     "400": {
-                        "description": "Invalid request payload",
+                        "description": "Bad Request",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "500": {
-                        "description": "Failed to create user",
+                        "description": "Internal Server Error",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -190,7 +180,7 @@ const docTemplate = `{
         },
         "/api/user/delete": {
             "delete": {
-                "description": "Deletes a user from the database (not implemented yet)",
+                "description": "Deletes a user from the database",
                 "produces": [
                     "application/json"
                 ],
@@ -198,23 +188,84 @@ const docTemplate = `{
                     "user"
                 ],
                 "summary": "Delete a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Delete user functionality not implemented yet",
+                        "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/responses.UserResponse"
                         }
                     },
                     "400": {
-                        "description": "Failed to delete user",
+                        "description": "Bad Request",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/responses.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/verify": {
+            "post": {
+                "description": "Checks whether the user is verified or not by sending them an email and waiting for the email link to be verified",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Verify a user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/teapot": {
+            "get": {
+                "description": "Determines if you are worthy of chai",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tea"
+                ],
+                "summary": "Teapot",
+                "responses": {
+                    "418": {
+                        "description": "I'm a teapot",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -266,17 +317,17 @@ const docTemplate = `{
                 "createdAt": {
                     "type": "string"
                 },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
                 "email": {
                     "type": "string"
+                },
+                "emailVerified": {
+                    "type": "boolean"
                 },
                 "githubId": {
                     "type": "string"
                 },
                 "id": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "password": {
                     "type": "string"
@@ -287,13 +338,26 @@ const docTemplate = `{
                         "$ref": "#/definitions/models.Session"
                     }
                 },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "userId": {
-                    "type": "string"
-                },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses.UserResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "userID": {
                     "type": "string"
                 }
             }
