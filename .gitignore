@@ -16,6 +16,7 @@ backend/*.exe
 backend/*.out
 backend/*.test
 backend/tmp/
+backend/target/
 *.log
 *.tmp
 *.swp

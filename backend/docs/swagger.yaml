@@ -8,6 +8,18 @@ definitions:
         description: Valid is true if Time is not NULL
         type: boolean
     type: object
+  handler.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  handler.UserResponse:
+    properties:
+      message:
+        type: string
+      userID:
+        type: string
+    type: object
   models.Session:
     properties:
       createdAt:
@@ -155,20 +167,15 @@ paths:
         "201":
           description: Created
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/handler.UserResponse'
         "400":
-          description: Invalid request payload
+          description: Bad Request
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            $ref: '#/definitions/handler.ErrorResponse'
         "500":
-          description: Failed to create user
+          description: Internal Server Error
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            $ref: '#/definitions/handler.ErrorResponse'
       summary: add a new user to the db
       tags:
       - user
