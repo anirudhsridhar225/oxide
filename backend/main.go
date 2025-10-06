@@ -87,8 +87,8 @@ func addHandler(w http.ResponseWriter, r *http.Request) {
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
 
 		if r.Method == "OPTIONS" {
 			w.WriteHeader(http.StatusOK)
@@ -135,6 +135,7 @@ func main() {
 	router.Use(middleware.Timeout(60 * time.Second))
 
 	router.Get("/", rootHandler)
+	router.Get("/tea", handler.TeapotHandler)
 
 	// Swagger documentation - accessible at both /swagger and /docs
 	router.Get("/swagger/*", httpSwagger.WrapHandler)
@@ -144,7 +145,7 @@ func main() {
 		r.With(paginate).Get("/add", addHandler)
 		r.With(paginate).Get("/user", handler.UserHandler)
 		r.With(paginate).Post("/user/add", handler.AddUserHandler)
-		r.With(paginate).Post("/user/delete", handler.DeleteUserHandler)
+		r.Delete("/user/delete", handler.DeleteUserHandler)
 
 		// r.With(paginate).Get("fetch-repo", func(w http.ResponseWriter, r *http.Request) {
 		// 	url := r.URL.Query().Get("url")

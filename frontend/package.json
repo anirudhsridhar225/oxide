@@ -13,11 +13,9 @@
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
-    "concurrently": "^9.2.0",
     "htmx.org": "^2.0.6"
   },
   "devDependencies": {
-    "serve": "^14.2.4",
     "vite": "^7.0.0"
   }
 }
