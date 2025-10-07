@@ -23,3 +23,5 @@ backend/target/
 vendor/
 *.cover
 *.cov
+
+fafo-backend/target

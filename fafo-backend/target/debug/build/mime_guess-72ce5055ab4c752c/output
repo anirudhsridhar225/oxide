@@ -1,1 +1,0 @@
-cargo:rustc-env=MIME_TYPES_GENERATED_PATH=/Users/nsridhar/andy_code/projects/oxide/fafo-backend/target/debug/build/mime_guess-72ce5055ab4c752c/out/mime_types_generated.rs
